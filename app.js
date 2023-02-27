@@ -1,13 +1,8 @@
 
 require('dotenv').config();
 
-const express = require('express');
-const app = express()
+const ServerClass = require('./models/server')
 
-app.get('/', (req, res) => {
-    res.send("")
-})
+const Server = new ServerClass();
 
-app.listen( process.env.PORT, () => {
-    console.log('Server active on, ', process.env.PORT);
-})
+Server.start();
