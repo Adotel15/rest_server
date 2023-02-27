@@ -1,5 +1,6 @@
 
 const express = require('express');
+const cors = require('cors');
 
 class ServerClass {
 
@@ -19,7 +20,8 @@ class ServerClass {
     {
         // Express lee la carpeta public
         // Cuando llamas a / te devuelve el index.html
-        this.app.use( express.static('public') )
+        this.app.use( express.static('public') );
+        this.app.use( cors() );
     }
 
     routes ()
@@ -46,14 +48,14 @@ class ServerClass {
             res.json({
                 message: " delete Ya lo see"
             })
-        })
+        });
     }
 
     start ()
     {
         this.app.listen( this.port, () => {
             console.log('Server active on, ', this.port);
-        })
+        });
     }
 
 }
