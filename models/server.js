@@ -4,10 +4,15 @@ const cors = require('cors');
 
 class ServerClass {
 
+    app = '';
+    port = '';
+    usersPath = '';
+
     constructor() {
         // Instancia Express
         this.app = express();
         this.port = process.env.PORT;
+        this.usersPath = '/api/users'
 
         // Middlewares
         this.middlewares();
@@ -26,29 +31,8 @@ class ServerClass {
 
     routes ()
     {
-        this.app.get('/api', (req, res) => {
-            res.json({
-                message: "Ya lo see"
-            })
-        });
-
-        this.app.put('/api', (req, res) => {
-            res.json({
-                message: "put Ya lo see"
-            })
-        });
-
-        this.app.post('/api', (req, res) => {
-            res.json({
-                message: " post Ya lo see"
-            })
-        });
-
-        this.app.delete('/api', (req, res) => {
-            res.json({
-                message: " delete Ya lo see"
-            })
-        });
+        // Importarmos el route de express
+       this.app.use('/api/users', require('../routes/user'))
     }
 
     start ()
