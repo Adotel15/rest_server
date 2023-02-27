@@ -18,13 +18,34 @@ class ServerClass {
     middlewares()
     {
         // Express lee la carpeta public
+        // Cuando llamas a / te devuelve el index.html
         this.app.use( express.static('public') )
     }
 
     routes ()
     {
-        this.app.get('/', (req, res) => {
-            res.send("Hola")
+        this.app.get('/api', (req, res) => {
+            res.json({
+                message: "Ya lo see"
+            })
+        });
+
+        this.app.put('/api', (req, res) => {
+            res.json({
+                message: "put Ya lo see"
+            })
+        });
+
+        this.app.post('/api', (req, res) => {
+            res.json({
+                message: " post Ya lo see"
+            })
+        });
+
+        this.app.delete('/api', (req, res) => {
+            res.json({
+                message: " delete Ya lo see"
+            })
         })
     }
 
