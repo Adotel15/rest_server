@@ -5,6 +5,7 @@ const {
     getUsers,
     createUsers,
     editUsers,
+    patchUser,
     deleteUsers
 } = require('../controllers/user')
 
@@ -15,6 +16,8 @@ router.get('/', getUsers);
 router.put('/', editUsers);
 
 router.post('/', createUsers);
+
+router.patch('/', patchUser);
 
 router.delete('/', deleteUsers);
 

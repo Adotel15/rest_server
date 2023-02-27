@@ -13,6 +13,10 @@ const editUsers = (req, res = response) => {
     res.json({ msg: 'Edit' });
 }
 
+const patchUser = (req, res = response) => {
+    res.json({ msg: 'Patch' });
+}
+
 const deleteUsers = (req, res = response) => {
     res.json({ msg: 'Delete' });
 }
@@ -21,6 +25,7 @@ module.exports = {
     getUsers,
     createUsers,
     editUsers,
+    patchUser,
     deleteUsers
 }
 
