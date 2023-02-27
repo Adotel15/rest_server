@@ -32,7 +32,7 @@ class ServerClass {
     routes ()
     {
         // Importarmos el route de express
-       this.app.use('/api/users', require('../routes/user'))
+       this.app.use(this.usersPath, require('../routes/user'))
     }
 
     start ()
