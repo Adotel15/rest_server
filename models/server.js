@@ -27,6 +27,7 @@ class ServerClass {
         // Cuando llamas a / te devuelve el index.html
         this.app.use( express.static('public') );
         this.app.use( cors() );
+        this.app.use( express.json() );
     }
 
     routes ()
