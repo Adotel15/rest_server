@@ -13,7 +13,7 @@ const router = Router();
 
 router.get('/', getUsers);
 
-router.put('/', editUsers);
+router.put('/:id', editUsers);
 
 router.post('/', createUsers);
 
