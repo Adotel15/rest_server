@@ -3,6 +3,7 @@ const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 
 const User = require('../models/user');
+const { validationResult } = require('express-validator');
 
 const getUsers = (req = request, res = response) => {
 
@@ -14,6 +15,12 @@ const getUsers = (req = request, res = response) => {
 
 const createUsers = async (req = request, res = response) => {
 
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(400).json(errors);
+    }
+
     const { name, mail, password, role } = req.body;
 
     const user = new User({
@@ -23,6 +30,12 @@ const createUsers = async (req = request, res = response) => {
         role
     });
 
+    const mailExist = await User.findOne({ mail });
+
+    if(mailExist) {
+        return res.status(400).json({ msg: 'Mail already registered' })
+    }
+
     const salt = bcryptjs.genSaltSync(10);
     user.password = bcryptjs.hashSync(password, salt);
 
@@ -30,10 +43,10 @@ const createUsers = async (req = request, res = response) => {
         await user.save();
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: 'Error', body: error })
+        return res.status(500).json({ msg: 'Error', body: error })
     }
 
-    res.status(200).json({ msg: `${name} created` });
+    return res.status(200).json({ msg: `${name} created` });
 }
 
 const editUsers = (req = request, res = response) => {
