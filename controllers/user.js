@@ -1,6 +1,8 @@
 
 const { response, request } = require('express');
 
+const User = require('../models/user');
+
 const getUsers = (req = request, res = response) => {
 
     // Comes after de ? in the url
@@ -9,14 +11,22 @@ const getUsers = (req = request, res = response) => {
     res.json({ msg: 'Get', nom, num });
 }
 
-const createUsers = (req, res = response) => {
+const createUsers = async (req = request, res = response) => {
 
     const body = req.body;
+    const user = new User(body);
 
-    res.json({ msg: 'Create', body });
+    try {
+        await user.save();
+    } catch (error) {
+        console.log(error);
+        throw new Error ('Error al crear Usuario')
+    }
+
+    res.status(200).json({ msg: `${body.name} created` });
 }
 
-const editUsers = (req, res = response) => {
+const editUsers = (req = request, res = response) => {
 
     // Comes from routers
     const id = req.params.id;
