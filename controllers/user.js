@@ -1,5 +1,6 @@
 
 const { response, request } = require('express');
+const bcryptjs = require('bcryptjs');
 
 const User = require('../models/user');
 
@@ -13,17 +14,26 @@ const getUsers = (req = request, res = response) => {
 
 const createUsers = async (req = request, res = response) => {
 
-    const body = req.body;
-    const user = new User(body);
+    const { name, mail, password, role } = req.body;
+
+    const user = new User({
+        name,
+        mail,
+        password,
+        role
+    });
+
+    const salt = bcryptjs.genSaltSync(10);
+    user.password = bcryptjs.hashSync(password, salt);
 
     try {
         await user.save();
     } catch (error) {
         console.log(error);
-        throw new Error ('Error al crear Usuario')
+        res.status(500).json({ msg: 'Error', body: error })
     }
 
-    res.status(200).json({ msg: `${body.name} created` });
+    res.status(200).json({ msg: `${name} created` });
 }
 
 const editUsers = (req = request, res = response) => {
