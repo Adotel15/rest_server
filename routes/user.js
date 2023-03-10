@@ -16,9 +16,15 @@ router.get('/', getUsers);
 
 router.put('/:id', editUsers);
 
-router.post('/'
-    ,[check('mail', 'Mail not valid').isEmail() ]
-    , createUsers
+router.post(
+    '/',
+    [
+        check('mail', 'Mail not valid').isEmail(),
+        check('name', 'Name required').not().isEmpty(),
+        check('password', 'Passowrd atleast 6 characters').isLength({ min: 6 }),
+        check('role', 'Not valid role').isIn(['ADMIN_ROLE', 'USER_ROLE'])
+    ], 
+    createUsers
 );
 
 router.patch('/', patchUser);
