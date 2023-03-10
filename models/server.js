@@ -2,6 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 
+const { dbConnect } = require('../database/config')
+
 class ServerClass {
 
     static app = '';
@@ -19,6 +21,13 @@ class ServerClass {
 
         // Rutas
         this.routes();
+
+        // DB
+        this.connectDB();
+    }
+
+    connectDB = async () => {
+        await dbConnect();
     }
 
     middlewares()
