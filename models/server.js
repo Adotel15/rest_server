@@ -4,9 +4,9 @@ const cors = require('cors');
 
 class ServerClass {
 
-    app = '';
-    port = '';
-    usersPath = '';
+    static app = '';
+    static port = '';
+    static usersPath = '';
 
     constructor() {
         // Instancia Express

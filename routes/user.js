@@ -19,7 +19,7 @@ router.post('/', createUsers);
 
 router.patch('/', patchUser);
 
-router.delete('/', deleteUsers);
+router.delete('/:id', deleteUsers);
 
 
 
