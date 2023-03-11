@@ -1,6 +1,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
+const Role = require('../models/role');
 
 const {
     getUsers,
@@ -24,6 +25,10 @@ router.post(
         check('name', 'Name required').not().isEmpty(),
         check('password', 'Passowrd atleast 6 characters').isLength({ min: 6 }),
         //check('role', 'Not valid role').isIn(['ADMIN_ROLE', 'USER_ROLE']),
+        check('role').custom( async (role = '' ) => {
+            const roleExist = await Role.findOne({ role });
+            if(!roleExist) throw new Error('Role not valid');
+        }),
         inputValidations
     ], 
     createUsers
