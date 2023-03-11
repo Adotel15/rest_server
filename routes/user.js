@@ -13,22 +13,20 @@ const {
 
 const router = Router();
 
+const validationArray = [
+    check('mail', 'Mail not valid').isEmail().custom(checkMail),
+    check('name', 'Name required').not().isEmpty(),
+    check('password', 'Passowrd atleast 6 characters').isLength({ min: 6 }),
+    //check('role', 'Not valid role').isIn(['ADMIN_ROLE', 'USER_ROLE']),
+    check('role').custom(isValidRole),
+    inputValidations
+];
+
 router.get('/', getUsers);
 
 router.put('/:id', editUsers);
 
-router.post(
-    '/',
-    [
-        check('mail', 'Mail not valid').isEmail().custom(checkMail),
-        check('name', 'Name required').not().isEmpty(),
-        check('password', 'Passowrd atleast 6 characters').isLength({ min: 6 }),
-        //check('role', 'Not valid role').isIn(['ADMIN_ROLE', 'USER_ROLE']),
-        check('role').custom(isValidRole),
-        inputValidations
-    ], 
-    createUsers
-);
+router.post( '/', validationArray, createUsers);
 
 router.patch('/', patchUser);
 
