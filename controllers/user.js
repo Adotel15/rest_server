@@ -37,7 +37,7 @@ const createUsers = async (req = request, res = response) => {
         return res.status(500).json({ msg: 'Error', body: error })
     }
 
-    return res.status(200).json({ msg: `${name} created` });
+    return res.status(200).json({ user });
 }
 
 const editUsers = (req = request, res = response) => {
