@@ -36,12 +36,20 @@ const createUsers = async (req = request, res = response) => {
     return res.status(200).json({ user });
 }
 
-const editUsers = (req = request, res = response) => {
+const editUsers = async (req = request, res = response) => {
 
     // Comes from routers
-    const id = req.params.id;
+    const { id } = req.params;
+    const { password, google, mail, ...rest } = req.body;
 
-    res.json({ msg: 'Edit' });
+    if(password) {
+        const salt = bcryptjs.genSaltSync(10);
+        rest.password = bcryptjs.hashSync(password, salt);
+    }
+
+    const newUser = await User.findByIdAndUpdate(id, rest);
+
+    res.json({ msg: newUser });
 }
 
 const patchUser = (req, res = response) => {
