@@ -40,7 +40,7 @@ const editUsers = async (req = request, res = response) => {
 
     // Comes from routers
     const { id } = req.params;
-    const { password, google, mail, ...rest } = req.body;
+    const { _id, password, google, mail, ...rest } = req.body;
 
     if(password) {
         const salt = bcryptjs.genSaltSync(10);

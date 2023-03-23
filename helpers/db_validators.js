@@ -16,7 +16,15 @@ const checkMail = async mail => {
 
 }
 
+const existUserByID = async id => {
+
+    const userExist = await User.findById(id);
+    if(!userExist) throw new Error(`Id does no exist ${id}`);
+    
+}
+
 module.exports = {
     isValidRole,
-    checkMail
+    checkMail,
+    existUserByID
 }
