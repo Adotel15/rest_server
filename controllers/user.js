@@ -62,8 +62,13 @@ const patchUser = (req, res = response) => {
     res.json({ msg: 'Patch' });
 }
 
-const deleteUsers = (req, res = response) => {
-    res.json({ msg: 'Delete' });
+const deleteUsers = async (req, res = response) => {
+
+    const { id } = req.params;
+
+    const user = await User.findByIdAndDelete(id);
+
+    res.json({ msg: 'Deleted succesfully', user });
 }
 
 module.exports = {

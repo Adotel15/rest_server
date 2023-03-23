@@ -27,16 +27,22 @@ const putMiddleware = [
     check('id').custom(existUserByID),
     check('role').custom(isValidRole),
     inputValidations
+];
+
+const deleteMiddleware = [
+    check('id', 'Not valid ID').isMongoId(),
+    check('id').custom(existUserByID),
+    inputValidations
 ]
 
 router.get('/', getUsers);
 
-router.put('/:id', putMiddleware , editUsers);
+router.put('/:id', putMiddleware, editUsers);
 
 router.post( '/', postMiddleware, createUsers);
 
 router.patch('/', patchUser);
 
-router.delete('/:id', deleteUsers);
+router.delete('/:id', deleteMiddleware, deleteUsers);
 
 module.exports = router;
