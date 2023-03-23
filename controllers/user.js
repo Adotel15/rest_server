@@ -66,7 +66,9 @@ const deleteUsers = async (req, res = response) => {
 
     const { id } = req.params;
 
-    const user = await User.findByIdAndDelete(id);
+    // const user = await User.findByIdAndDelete(id);
+    // Not to delete user make state false
+    const user  = await User.findByIdAndUpdate(id, { state: false });
 
     res.json({ msg: 'Deleted succesfully', user });
 }
