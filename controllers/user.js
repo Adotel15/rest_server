@@ -4,12 +4,17 @@ const bcryptjs = require('bcryptjs');
 
 const User = require('../models/user');
 
-const getUsers = (req = request, res = response) => {
+const getUsers = async (req = request, res = response) => {
 
     // Comes after de ? in the url
-    const { nom, num = 'No Num' } = req.query;
+    //const { nom, num = 'No Num' } = req.query;
 
-    res.json({ msg: 'Get', nom, num });
+    const { limit = 10, from = 0 } = req.query;
+    const users = await User.find()
+        .skip(from)
+        .limit(Number(limit));
+
+    res.json({ users });
 }
 
 const createUsers = async (req = request, res = response) => {
