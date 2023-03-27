@@ -3,6 +3,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { isValidRole, checkMail, existUserByID } = require('../helpers/db_validators')
 const { inputValidations } = require('../middleware/validation');
+const { validateJWT } = require('../middleware/validate_jwt')
 const {
     getUsers,
     createUsers,
@@ -30,6 +31,7 @@ const putMiddleware = [
 ];
 
 const deleteMiddleware = [
+    validateJWT,
     check('id', 'Not valid ID').isMongoId(),
     check('id').custom(existUserByID),
     inputValidations
