@@ -9,12 +9,14 @@ class ServerClass {
     static app = '';
     static port = '';
     static usersPath = '';
+    static authPath = '';
 
     constructor() {
         // Instancia Express
         this.app = express();
         this.port = process.env.PORT;
         this.usersPath = '/api/users'
+        this.authPath = '/api/auth'
 
         // Middlewares
         this.middlewares();
@@ -42,7 +44,8 @@ class ServerClass {
     routes ()
     {
         // Importarmos el route de express
-       this.app.use(this.usersPath, require('../routes/user'))
+        this.app.use(this.authPath, require('../routes/auth'));
+        this.app.use(this.usersPath, require('../routes/user'));
     }
 
     start ()
