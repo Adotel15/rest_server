@@ -2,7 +2,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { login } = require('../controllers/auth');
+const { loginController } = require('../controllers/auth');
 const { inputValidations } = require('../middleware/validation');
 
 const authRouter = Router();
@@ -13,6 +13,6 @@ const postMiddleware = [
     inputValidations
 ]
 
-authRouter.post('/login', postMiddleware, login);
+authRouter.post('/login', postMiddleware, loginController);
 
 module.exports = authRouter;

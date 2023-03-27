@@ -15,7 +15,7 @@ const getUsers = async (req = request, res = response) => {
         User.find(query).skip(from).limit(Number(limit))
     ])
 
-    res.json({ total, allUser });
+    res.status(200).json({ total, allUser });
 }
 
 const createUsers = async (req = request, res = response) => {
